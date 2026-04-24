@@ -5,12 +5,29 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import FileResponse
 from fastapi.staticfiles import StaticFiles
+from opentelemetry import trace
+from opentelemetry.exporter.otlp.proto.http.trace_exporter import OTLPSpanExporter
+from opentelemetry.instrumentation.fastapi import FastAPIInstrumentor
+from opentelemetry.instrumentation.langchain import LangchainInstrumentor
+from opentelemetry.sdk.resources import Resource
+from opentelemetry.sdk.trace import TracerProvider
+from opentelemetry.sdk.trace.export import BatchSpanProcessor
 from sse_starlette.sse import EventSourceResponse
 
-from app.agent import agent
+# Configure OpenTelemetry SDK — reads OTEL_SERVICE_NAME,
+# OTEL_EXPORTER_OTLP_ENDPOINT, and OTEL_EXPORTER_OTLP_HEADERS from env.
+resource = Resource.create()
+provider = TracerProvider(resource=resource)
+provider.add_span_processor(BatchSpanProcessor(OTLPSpanExporter()))
+trace.set_tracer_provider(provider)
+
+LangchainInstrumentor().instrument()
+
+from app.agent import agent  # noqa: E402 — must import after instrumentation
 from app.models import ChatRequest, ChatResponse
 
 app = FastAPI(title="Python Merch Store - LangChain")
+FastAPIInstrumentor.instrument_app(app)
 
 app.add_middleware(
     CORSMiddleware,

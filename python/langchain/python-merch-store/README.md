@@ -110,6 +110,35 @@ npm run dev
 
 The Vite dev server runs on http://localhost:5173 and proxies `/api` requests to `http://localhost:8080`.
 
+## Observability with Dash0
+
+The application is instrumented with [OpenTelemetry](https://opentelemetry.io/) using the [`opentelemetry-instrumentation-langchain`](https://pypi.org/project/opentelemetry-instrumentation-langchain/) package. This automatically traces all LangChain/LangGraph operations — LLM calls, tool invocations, and agent reasoning steps — and exports them via OTLP.
+
+To send telemetry data to [Dash0](https://www.dash0.com/), set the following environment variables before starting the application:
+
+```bash
+export OTEL_SERVICE_NAME=python-merch-store
+export OTEL_EXPORTER_OTLP_HEADERS_AUTHORIZATION=<your-dash0-auth-token>
+export DASH0_DATASET=<your dash0 dataset>
+export OTEL_EXPORTER_OTLP_ENDPOINT=<your-dash0-endpoint>
+export OTEL_EXPORTER_OTLP_HEADERS="Authorization=Bearer ${OTEL_EXPORTER_OTLP_HEADERS_AUTHORIZATION},Dash0-Dataset=${DASH0_DATASET}"
+
+```
+
+| Variable | Description |
+|----------|-------------|
+| `OTEL_SERVICE_NAME` | Identifies this service in Dash0 (e.g. `python-merch-store`) |
+| `OTEL_EXPORTER_OTLP_ENDPOINT` | Dash0 OTLP ingestion endpoint |
+| `OTEL_EXPORTER_OTLP_HEADERS` | Auth and dataset headers sent with every OTLP request |
+| `OTEL_EXPORTER_OTLP_HEADERS_AUTHORIZATION` | Your Dash0 API auth token (found in Dash0 settings) |
+| `DASH0_DATASET` | Dash0 dataset to route data to (use `default` if unsure) |
+
+To disable prompt/completion content capture for privacy, set:
+
+```bash
+export TRACELOOP_TRACE_CONTENT=false
+```
+
 ## API Endpoints
 
 | Method | Path | Description |

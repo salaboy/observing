@@ -11,6 +11,11 @@ dependencies = [
     "langgraph>=0.3",
     "pydantic>=2.0",
     "sse-starlette>=2.0",
+    "opentelemetry-instrumentation-fastapi>=0.40",
+    "opentelemetry-instrumentation-langchain>=0.60",
+    "opentelemetry-sdk>=1.20",
+    "opentelemetry-exporter-otlp>=1.20",
+    "wrapt>=1.14,<2.0",
 ]
 
 [project.optional-dependencies]
