@@ -2,8 +2,8 @@
 set -euo pipefail
 
 ORG="salaboy"
-IMAGE="python-merch-store"
-TAG="${1:-otel-langchain-traceloop}"
+IMAGE="python-merch-store-otel-langchain-traceloop"
+TAG="${:0.0.1}"
 
 FULL_IMAGE="${ORG}/${IMAGE}:${TAG}"
 

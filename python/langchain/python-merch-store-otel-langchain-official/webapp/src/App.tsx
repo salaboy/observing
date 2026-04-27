@@ -522,7 +522,7 @@ export default function App() {
         userSelect: 'none',
       }}>
         <span style={{ fontSize: '14px' }}>🐍</span>
-        <a href="">Python Merch Store (Otel Langchain Official)</a>
+        <a href="https://github.com/salaboy/observing-ai/tree/main/python/langchain/python-merch-store-otel-langchain-official">Python Merch Store (Otel Langchain Official)</a>
         <div style={{ marginLeft: 'auto', display: 'flex', gap: '2px' }}>
           {['_', '□', '✕'].map(btn => (
             <div key={btn} style={{
@@ -616,7 +616,7 @@ export default function App() {
       gap: '10px',
     }}>
       <span>🐍</span>
-      <a href="">Python Merch Store (Otel Langchain Official)</a>
+      <a href="https://github.com/salaboy/observing-ai/tree/main/python/langchain/python-merch-store-otel-langchain-official">Python Merch Store (Otel Langchain Official)</a>
       <ThemeToggle theme={theme} onToggle={toggleTheme} />
     </div>
   )
