@@ -11,7 +11,7 @@ RUN CGO_ENABLED=0 go build -o claude-proxy .
 FROM node:22-bookworm-slim
 
 # Install Claude Code globally via npm
-RUN npm install -g @anthropic-ai/claude-code
+RUN npm install -g @anthropic-ai/claude-code@2.1.119
 
 # Copy the Go binary from the build stage
 COPY --from=builder /app/claude-proxy /usr/local/bin/claude-proxy

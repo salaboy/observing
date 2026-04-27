@@ -150,6 +150,10 @@ func createSession() (*Session, error) {
 		"--input-format", "stream-json",
 	}
 
+	if m := os.Getenv("CLAUDE_MODEL"); m != "" {
+		args = append(args, "--model", m)
+	}
+
 	claudeBin := "claude"
 	if v := os.Getenv("CLAUDE_BIN"); v != "" {
 		claudeBin = v
