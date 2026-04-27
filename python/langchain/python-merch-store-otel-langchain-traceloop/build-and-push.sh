@@ -1,11 +1,10 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-ORG="salaboy"
-IMAGE="python-merch-store-otel-langchain-traceloop"
-TAG="${:0.0.1}"
+IMAGE="salaboy/python-merch-store-otel-langchain-traceloop"
+TAG="${1:-$(cat "$(dirname "$0")/VERSION" | tr -d '[:space:]')}"
 
-FULL_IMAGE="${ORG}/${IMAGE}:${TAG}"
+FULL_IMAGE="${IMAGE}:${TAG}"
 
 echo "Building and pushing multi-arch image: ${FULL_IMAGE}"
 
