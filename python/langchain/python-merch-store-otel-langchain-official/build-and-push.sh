@@ -3,7 +3,7 @@ set -euo pipefail
 
 ORG="salaboy"
 IMAGE="python-merch-store"
-TAG="${1:-genai-otel}"
+TAG="${1:-otel-langchain-official}"
 
 FULL_IMAGE="${ORG}/${IMAGE}:${TAG}"
 
